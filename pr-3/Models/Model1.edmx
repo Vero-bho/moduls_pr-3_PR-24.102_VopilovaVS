@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MiningMetallurgyPlantModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contract_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sign_date" Type="date" Nullable="false" />
+          <Property Name="is_defense_order" Type="bit" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Email_Log">
+          <Key>
+            <PropertyRef Name="email_id" />
+          </Key>
+          <Property Name="email_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="recipient" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="subject" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="send_date" Type="date" Nullable="false" />
+          <Property Name="email_type" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipments">
+          <Key>
+            <PropertyRef Name="equipment_id" />
+          </Key>
+          <Property Name="equipment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="equipment_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="equipment_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Material_Requests">
+          <Key>
+            <PropertyRef Name="request_id" />
+          </Key>
+          <Property Name="request_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="equipment_id" Type="int" Nullable="false" />
+          <Property Name="request_date" Type="date" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Minerals">
+          <Key>
+            <PropertyRef Name="mineral_id" />
+          </Key>
+          <Property Name="mineral_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mineral_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="quality_grade" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mining_Parties">
+          <Key>
+            <PropertyRef Name="party_id" />
+          </Key>
+          <Property Name="party_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mineral_id" Type="int" Nullable="false" />
+          <Property Name="extraction_date" Type="date" Nullable="false" />
+          <Property Name="volume" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="quality_check" Type="bit" />
+        </EntityType>
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="shipment_id" />
+          </Key>
+          <Property Name="shipment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="party_id" Type="int" Nullable="false" />
+          <Property Name="contract_id" Type="int" Nullable="false" />
+          <Property Name="shipment_date" Type="date" Nullable="false" />
+          <Property Name="destination" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Social_Expenses">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="program_id" Type="int" Nullable="false" />
+          <Property Name="expense_date" Type="date" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Social_Programs">
+          <Key>
+            <PropertyRef Name="program_id" />
+          </Key>
+          <Property Name="program_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="program_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="budget" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="contact_person" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="is_foreign" Type="bit" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tax_Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payment_date" Type="date" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="period" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Warehouse_Reserves">
+          <Key>
+            <PropertyRef Name="reserve_id" />
+          </Key>
+          <Property Name="reserve_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mineral_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="last_updated" Type="date" />
+        </EntityType>
+        <Association Name="FK__Material___equip__412EB0B6">
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
+          <End Role="Material_Requests" Type="Self.Material_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipments">
+              <PropertyRef Name="equipment_id" />
+            </Principal>
+            <Dependent Role="Material_Requests">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mining_Pa__miner__31EC6D26">
+          <End Role="Minerals" Type="Self.Minerals" Multiplicity="1" />
+          <End Role="Mining_Parties" Type="Self.Mining_Parties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Minerals">
+              <PropertyRef Name="mineral_id" />
+            </Principal>
+            <Dependent Role="Mining_Parties">
+              <PropertyRef Name="mineral_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shipments__contr__36B12243">
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shipments__party__35BCFE0A">
+          <End Role="Mining_Parties" Type="Self.Mining_Parties" Multiplicity="1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mining_Parties">
+              <PropertyRef Name="party_id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="party_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Social_Ex__progr__3E52440B">
+          <End Role="Social_Programs" Type="Self.Social_Programs" Multiplicity="1" />
+          <End Role="Social_Expenses" Type="Self.Social_Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Social_Programs">
+              <PropertyRef Name="program_id" />
+            </Principal>
+            <Dependent Role="Social_Expenses">
+              <PropertyRef Name="program_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Warehouse__miner__2C3393D0">
+          <End Role="Minerals" Type="Self.Minerals" Multiplicity="1" />
+          <End Role="Warehouse_Reserves" Type="Self.Warehouse_Reserves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Minerals">
+              <PropertyRef Name="mineral_id" />
+            </Principal>
+            <Dependent Role="Warehouse_Reserves">
+              <PropertyRef Name="mineral_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище MiningMetallurgyPlantModelContainer">
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email_Log" EntityType="Self.Email_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material_Requests" EntityType="Self.Material_Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Minerals" EntityType="Self.Minerals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mining_Parties" EntityType="Self.Mining_Parties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Social_Expenses" EntityType="Self.Social_Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Social_Programs" EntityType="Self.Social_Programs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tax_Payments" EntityType="Self.Tax_Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse_Reserves" EntityType="Self.Warehouse_Reserves" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Material___equip__412EB0B6" Association="Self.FK__Material___equip__412EB0B6">
+            <End Role="Equipments" EntitySet="Equipments" />
+            <End Role="Material_Requests" EntitySet="Material_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mining_Pa__miner__31EC6D26" Association="Self.FK__Mining_Pa__miner__31EC6D26">
+            <End Role="Minerals" EntitySet="Minerals" />
+            <End Role="Mining_Parties" EntitySet="Mining_Parties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shipments__contr__36B12243" Association="Self.FK__Shipments__contr__36B12243">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shipments__party__35BCFE0A" Association="Self.FK__Shipments__party__35BCFE0A">
+            <End Role="Mining_Parties" EntitySet="Mining_Parties" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Social_Ex__progr__3E52440B" Association="Self.FK__Social_Ex__progr__3E52440B">
+            <End Role="Social_Programs" EntitySet="Social_Programs" />
+            <End Role="Social_Expenses" EntitySet="Social_Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Warehouse__miner__2C3393D0" Association="Self.FK__Warehouse__miner__2C3393D0">
+            <End Role="Minerals" EntitySet="Minerals" />
+            <End Role="Warehouse_Reserves" EntitySet="Warehouse_Reserves" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MiningMetallurgyPlantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="contract_id" />
+          </Key>
+          <Property Name="contract_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contract_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sign_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="is_defense_order" Type="Boolean" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Shipments" Relationship="Self.FK__Shipments__contr__36B12243" FromRole="Contracts" ToRole="Shipments" />
+        </EntityType>
+        <EntityType Name="Email_Log">
+          <Key>
+            <PropertyRef Name="email_id" />
+          </Key>
+          <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="recipient" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="send_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="email_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipments">
+          <Key>
+            <PropertyRef Name="equipment_id" />
+          </Key>
+          <Property Name="equipment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="equipment_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="equipment_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Material_Requests" Relationship="Self.FK__Material___equip__412EB0B6" FromRole="Equipments" ToRole="Material_Requests" />
+        </EntityType>
+        <EntityType Name="Material_Requests">
+          <Key>
+            <PropertyRef Name="request_id" />
+          </Key>
+          <Property Name="request_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="equipment_id" Type="Int32" Nullable="false" />
+          <Property Name="request_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK__Material___equip__412EB0B6" FromRole="Material_Requests" ToRole="Equipments" />
+        </EntityType>
+        <EntityType Name="Minerals">
+          <Key>
+            <PropertyRef Name="mineral_id" />
+          </Key>
+          <Property Name="mineral_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mineral_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quality_grade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mining_Parties" Relationship="Self.FK__Mining_Pa__miner__31EC6D26" FromRole="Minerals" ToRole="Mining_Parties" />
+          <NavigationProperty Name="Warehouse_Reserves" Relationship="Self.FK__Warehouse__miner__2C3393D0" FromRole="Minerals" ToRole="Warehouse_Reserves" />
+        </EntityType>
+        <EntityType Name="Mining_Parties">
+          <Key>
+            <PropertyRef Name="party_id" />
+          </Key>
+          <Property Name="party_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mineral_id" Type="Int32" Nullable="false" />
+          <Property Name="extraction_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="volume" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="quality_check" Type="Boolean" />
+          <NavigationProperty Name="Minerals" Relationship="Self.FK__Mining_Pa__miner__31EC6D26" FromRole="Mining_Parties" ToRole="Minerals" />
+          <NavigationProperty Name="Shipments" Relationship="Self.FK__Shipments__party__35BCFE0A" FromRole="Mining_Parties" ToRole="Shipments" />
+        </EntityType>
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="shipment_id" />
+          </Key>
+          <Property Name="shipment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="party_id" Type="Int32" Nullable="false" />
+          <Property Name="contract_id" Type="Int32" Nullable="false" />
+          <Property Name="shipment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="destination" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK__Shipments__contr__36B12243" FromRole="Shipments" ToRole="Contracts" />
+          <NavigationProperty Name="Mining_Parties" Relationship="Self.FK__Shipments__party__35BCFE0A" FromRole="Shipments" ToRole="Mining_Parties" />
+        </EntityType>
+        <EntityType Name="Social_Expenses">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="program_id" Type="Int32" Nullable="false" />
+          <Property Name="expense_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Social_Programs" Relationship="Self.FK__Social_Ex__progr__3E52440B" FromRole="Social_Expenses" ToRole="Social_Programs" />
+        </EntityType>
+        <EntityType Name="Social_Programs">
+          <Key>
+            <PropertyRef Name="program_id" />
+          </Key>
+          <Property Name="program_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="program_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="budget" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="is_active" Type="Boolean" />
+          <NavigationProperty Name="Social_Expenses" Relationship="Self.FK__Social_Ex__progr__3E52440B" FromRole="Social_Programs" ToRole="Social_Expenses" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contact_person" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_foreign" Type="Boolean" />
+          <Property Name="is_active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tax_Payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="period" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Warehouse_Reserves">
+          <Key>
+            <PropertyRef Name="reserve_id" />
+          </Key>
+          <Property Name="reserve_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mineral_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="last_updated" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Minerals" Relationship="Self.FK__Warehouse__miner__2C3393D0" FromRole="Warehouse_Reserves" ToRole="Minerals" />
+        </EntityType>
+        <Association Name="FK__Shipments__contr__36B12243">
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contracts">
+              <PropertyRef Name="contract_id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="contract_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Material___equip__412EB0B6">
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
+          <End Role="Material_Requests" Type="Self.Material_Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipments">
+              <PropertyRef Name="equipment_id" />
+            </Principal>
+            <Dependent Role="Material_Requests">
+              <PropertyRef Name="equipment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Mining_Pa__miner__31EC6D26">
+          <End Role="Minerals" Type="Self.Minerals" Multiplicity="1" />
+          <End Role="Mining_Parties" Type="Self.Mining_Parties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Minerals">
+              <PropertyRef Name="mineral_id" />
+            </Principal>
+            <Dependent Role="Mining_Parties">
+              <PropertyRef Name="mineral_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Warehouse__miner__2C3393D0">
+          <End Role="Minerals" Type="Self.Minerals" Multiplicity="1" />
+          <End Role="Warehouse_Reserves" Type="Self.Warehouse_Reserves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Minerals">
+              <PropertyRef Name="mineral_id" />
+            </Principal>
+            <Dependent Role="Warehouse_Reserves">
+              <PropertyRef Name="mineral_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Shipments__party__35BCFE0A">
+          <End Role="Mining_Parties" Type="Self.Mining_Parties" Multiplicity="1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mining_Parties">
+              <PropertyRef Name="party_id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="party_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Social_Ex__progr__3E52440B">
+          <End Role="Social_Programs" Type="Self.Social_Programs" Multiplicity="1" />
+          <End Role="Social_Expenses" Type="Self.Social_Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Social_Programs">
+              <PropertyRef Name="program_id" />
+            </Principal>
+            <Dependent Role="Social_Expenses">
+              <PropertyRef Name="program_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiningMetallurgyPlantEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" />
+          <EntitySet Name="Email_Log" EntityType="Self.Email_Log" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipments" />
+          <EntitySet Name="Material_Requests" EntityType="Self.Material_Requests" />
+          <EntitySet Name="Minerals" EntityType="Self.Minerals" />
+          <EntitySet Name="Mining_Parties" EntityType="Self.Mining_Parties" />
+          <EntitySet Name="Shipments" EntityType="Self.Shipments" />
+          <EntitySet Name="Social_Expenses" EntityType="Self.Social_Expenses" />
+          <EntitySet Name="Social_Programs" EntityType="Self.Social_Programs" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tax_Payments" EntityType="Self.Tax_Payments" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Warehouse_Reserves" EntityType="Self.Warehouse_Reserves" />
+          <AssociationSet Name="FK__Shipments__contr__36B12243" Association="Self.FK__Shipments__contr__36B12243">
+            <End Role="Contracts" EntitySet="Contracts" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Material___equip__412EB0B6" Association="Self.FK__Material___equip__412EB0B6">
+            <End Role="Equipments" EntitySet="Equipments" />
+            <End Role="Material_Requests" EntitySet="Material_Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Mining_Pa__miner__31EC6D26" Association="Self.FK__Mining_Pa__miner__31EC6D26">
+            <End Role="Minerals" EntitySet="Minerals" />
+            <End Role="Mining_Parties" EntitySet="Mining_Parties" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Warehouse__miner__2C3393D0" Association="Self.FK__Warehouse__miner__2C3393D0">
+            <End Role="Minerals" EntitySet="Minerals" />
+            <End Role="Warehouse_Reserves" EntitySet="Warehouse_Reserves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Shipments__party__35BCFE0A" Association="Self.FK__Shipments__party__35BCFE0A">
+            <End Role="Mining_Parties" EntitySet="Mining_Parties" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Social_Ex__progr__3E52440B" Association="Self.FK__Social_Ex__progr__3E52440B">
+            <End Role="Social_Programs" EntitySet="Social_Programs" />
+            <End Role="Social_Expenses" EntitySet="Social_Expenses" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MiningMetallurgyPlantModelContainer" CdmEntityContainer="MiningMetallurgyPlantEntities">
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Contracts">
+              <MappingFragment StoreEntitySet="Contracts">
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="contract_number" ColumnName="contract_number" />
+                <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+                <ScalarProperty Name="sign_date" ColumnName="sign_date" />
+                <ScalarProperty Name="is_defense_order" ColumnName="is_defense_order" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Email_Log">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Email_Log">
+              <MappingFragment StoreEntitySet="Email_Log">
+                <ScalarProperty Name="email_id" ColumnName="email_id" />
+                <ScalarProperty Name="recipient" ColumnName="recipient" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="send_date" ColumnName="send_date" />
+                <ScalarProperty Name="email_type" ColumnName="email_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipments">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Equipments">
+              <MappingFragment StoreEntitySet="Equipments">
+                <ScalarProperty Name="equipment_id" ColumnName="equipment_id" />
+                <ScalarProperty Name="equipment_name" ColumnName="equipment_name" />
+                <ScalarProperty Name="equipment_type" ColumnName="equipment_type" />
+                <ScalarProperty Name="price" ColumnName="price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material_Requests">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Material_Requests">
+              <MappingFragment StoreEntitySet="Material_Requests">
+                <ScalarProperty Name="request_id" ColumnName="request_id" />
+                <ScalarProperty Name="equipment_id" ColumnName="equipment_id" />
+                <ScalarProperty Name="request_date" ColumnName="request_date" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Minerals">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Minerals">
+              <MappingFragment StoreEntitySet="Minerals">
+                <ScalarProperty Name="mineral_id" ColumnName="mineral_id" />
+                <ScalarProperty Name="mineral_name" ColumnName="mineral_name" />
+                <ScalarProperty Name="quality_grade" ColumnName="quality_grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mining_Parties">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Mining_Parties">
+              <MappingFragment StoreEntitySet="Mining_Parties">
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="mineral_id" ColumnName="mineral_id" />
+                <ScalarProperty Name="extraction_date" ColumnName="extraction_date" />
+                <ScalarProperty Name="volume" ColumnName="volume" />
+                <ScalarProperty Name="quality_check" ColumnName="quality_check" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Shipments">
+              <MappingFragment StoreEntitySet="Shipments">
+                <ScalarProperty Name="shipment_id" ColumnName="shipment_id" />
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="contract_id" ColumnName="contract_id" />
+                <ScalarProperty Name="shipment_date" ColumnName="shipment_date" />
+                <ScalarProperty Name="destination" ColumnName="destination" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Social_Expenses">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Social_Expenses">
+              <MappingFragment StoreEntitySet="Social_Expenses">
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+                <ScalarProperty Name="program_id" ColumnName="program_id" />
+                <ScalarProperty Name="expense_date" ColumnName="expense_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Social_Programs">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Social_Programs">
+              <MappingFragment StoreEntitySet="Social_Programs">
+                <ScalarProperty Name="program_id" ColumnName="program_id" />
+                <ScalarProperty Name="program_name" ColumnName="program_name" />
+                <ScalarProperty Name="budget" ColumnName="budget" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="supplier_name" ColumnName="supplier_name" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="is_foreign" ColumnName="is_foreign" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tax_Payments">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Tax_Payments">
+              <MappingFragment StoreEntitySet="Tax_Payments">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="tax_type" ColumnName="tax_type" />
+                <ScalarProperty Name="period" ColumnName="period" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouse_Reserves">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Warehouse_Reserves">
+              <MappingFragment StoreEntitySet="Warehouse_Reserves">
+                <ScalarProperty Name="reserve_id" ColumnName="reserve_id" />
+                <ScalarProperty Name="mineral_id" ColumnName="mineral_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -26,22 +26,39 @@ namespace pr_3.Pages
         }
         private void btnEnterGuests_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Client());
+            NavigationService.Navigate(new Client(null));
         }
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtLogin.Text) ||
-                string.IsNullOrWhiteSpace(psbPassword.Password))
+            if (string.IsNullOrWhiteSpace(txtLogin.Text) || string.IsNullOrWhiteSpace(psbPassword.Password))
             {
-                MessageBox.Show("Пожалуйста, заполните логин и пароль!",
-                                "Ошибка",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
+                MessageBox.Show("Заполните логин и пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            NavigationService.Navigate(new Client());
+            string inputHash = PasswordHasher.GetHash(psbPassword.Password);
+
+            using (var context = new pr_3.Models.MiningMetallurgyPlantEntities())
+            {
+                var user = context.Users.FirstOrDefault(u => u.Login == txtLogin.Text && u.PasswordHash == inputHash);
+
+                if (user != null)
+                {
+                    MessageBox.Show("Авторизация успешна!");
+                    NavigationService.Navigate(new Client(user.FirstName));
+                }
+                else
+                {
+                    MessageBox.Show("Неверный логин или пароль!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
+
+        private void btnRegisterPage_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Register());
+        }
+
     }
 }

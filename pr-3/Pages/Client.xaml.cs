@@ -20,7 +20,7 @@ namespace pr_3.Pages
     /// </summary>
     public partial class Client : Page
     {
-        public Client()
+        public Client(string firstName)
         {
             InitializeComponent();
         }

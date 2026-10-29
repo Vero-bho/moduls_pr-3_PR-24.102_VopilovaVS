@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7bff6ccb61a444fb93448d5bd99946a0" Name="Diagram1">
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Contracts" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Email_Log" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Equipments" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Material_Requests" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Minerals" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Mining_Parties" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Shipments" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Social_Expenses" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Social_Programs" Width="1.5" PointX="5.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Suppliers" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Tax_Payments" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Users" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.Warehouse_Reserves" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Shipments__contr__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Material___equip__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Mining_Pa__miner__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Warehouse__miner__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Shipments__party__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Social_Ex__progr__3E52440B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
