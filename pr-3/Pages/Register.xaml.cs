@@ -41,7 +41,7 @@ namespace pr_3.Pages
 
             try
             {
-                using (var context = new MiningMetallurgyPlantEntities())
+                using (var context = new MiningMetallurgyPlantEntities1())
                 {
                     var existingUser = context.Users.FirstOrDefault(u => u.Login == txtLogin.Text);
                     if (existingUser != null)
@@ -55,7 +55,8 @@ namespace pr_3.Pages
                         FirstName = txtFirstName.Text,
                         LastName = txtLastName.Text,
                         Login = txtLogin.Text,
-                        PasswordHash = hashedPassword
+                        PasswordHash = hashedPassword,
+                        RoleId = 1
                     };
 
                     context.Users.Add(newUser);

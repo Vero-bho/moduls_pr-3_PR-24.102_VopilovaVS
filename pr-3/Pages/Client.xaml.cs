@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pr_3.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,17 @@ namespace pr_3.Pages
     /// </summary>
     public partial class Client : Page
     {
-        public Client(string firstName)
+        public Client(Users user, string role)
         {
             InitializeComponent();
+            if (user != null)
+            {
+                this.Title = $"Клиент: {user.FirstName}";
+            }
+            else
+            {
+                this.Title = "Гость";
+            }
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

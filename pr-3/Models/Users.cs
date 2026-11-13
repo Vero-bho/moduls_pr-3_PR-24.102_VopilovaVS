@@ -19,6 +19,8 @@ namespace pr_3.Models
         public string LastName { get; set; }
         public string Login { get; set; }
         public string PasswordHash { get; set; }
-        public Nullable<int> RoleId { get; set; }
+        public int RoleId { get; set; }
+    
+        public virtual Roles Roles { get; set; }
     }
 }

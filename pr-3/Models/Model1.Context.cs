@@ -13,10 +13,10 @@ namespace pr_3.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MiningMetallurgyPlantEntities : DbContext
+    public partial class MiningMetallurgyPlantEntities1 : DbContext
     {
-        public MiningMetallurgyPlantEntities()
-            : base("name=MiningMetallurgyPlantEntities")
+        public MiningMetallurgyPlantEntities1()
+            : base("name=MiningMetallurgyPlantEntities1")
         {
         }
     
@@ -31,6 +31,7 @@ namespace pr_3.Models
         public virtual DbSet<Material_Requests> Material_Requests { get; set; }
         public virtual DbSet<Minerals> Minerals { get; set; }
         public virtual DbSet<Mining_Parties> Mining_Parties { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Shipments> Shipments { get; set; }
         public virtual DbSet<Social_Expenses> Social_Expenses { get; set; }
         public virtual DbSet<Social_Programs> Social_Programs { get; set; }

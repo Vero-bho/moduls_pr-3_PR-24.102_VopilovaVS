@@ -63,6 +63,13 @@
           <Property Name="volume" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="quality_check" Type="bit" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Shipments">
           <Key>
             <PropertyRef Name="shipment_id" />
@@ -133,7 +140,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PasswordHash" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="RoleId" Type="int" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Warehouse_Reserves">
           <Key>
@@ -216,6 +223,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище MiningMetallurgyPlantModelContainer">
           <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email_Log" EntityType="Self.Email_Log" Schema="dbo" store:Type="Tables" />
@@ -223,6 +242,7 @@
           <EntitySet Name="Material_Requests" EntityType="Self.Material_Requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Minerals" EntityType="Self.Minerals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mining_Parties" EntityType="Self.Mining_Parties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Social_Expenses" EntityType="Self.Social_Expenses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Social_Programs" EntityType="Self.Social_Programs" Schema="dbo" store:Type="Tables" />
@@ -254,6 +274,10 @@
           <AssociationSet Name="FK__Warehouse__miner__2C3393D0" Association="Self.FK__Warehouse__miner__2C3393D0">
             <End Role="Minerals" EntitySet="Minerals" />
             <End Role="Warehouse_Reserves" EntitySet="Warehouse_Reserves" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -325,6 +349,14 @@
           <Property Name="quality_check" Type="Boolean" />
           <NavigationProperty Name="Minerals" Relationship="Self.FK__Mining_Pa__miner__31EC6D26" FromRole="Mining_Parties" ToRole="Minerals" />
           <NavigationProperty Name="Shipments" Relationship="Self.FK__Shipments__party__35BCFE0A" FromRole="Mining_Parties" ToRole="Shipments" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
         </EntityType>
         <EntityType Name="Shipments">
           <Key>
@@ -400,7 +432,8 @@
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RoleId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
         </EntityType>
         <EntityType Name="Warehouse_Reserves">
           <Key>
@@ -472,6 +505,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Social_Ex__progr__3E52440B">
           <End Role="Social_Programs" Type="Self.Social_Programs" Multiplicity="1" />
           <End Role="Social_Expenses" Type="Self.Social_Expenses" Multiplicity="*" />
@@ -484,13 +529,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MiningMetallurgyPlantEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MiningMetallurgyPlantEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contracts" EntityType="Self.Contracts" />
           <EntitySet Name="Email_Log" EntityType="Self.Email_Log" />
           <EntitySet Name="Equipments" EntityType="Self.Equipments" />
           <EntitySet Name="Material_Requests" EntityType="Self.Material_Requests" />
           <EntitySet Name="Minerals" EntityType="Self.Minerals" />
           <EntitySet Name="Mining_Parties" EntityType="Self.Mining_Parties" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Shipments" EntityType="Self.Shipments" />
           <EntitySet Name="Social_Expenses" EntityType="Self.Social_Expenses" />
           <EntitySet Name="Social_Programs" EntityType="Self.Social_Programs" />
@@ -519,6 +565,10 @@
             <End Role="Mining_Parties" EntitySet="Mining_Parties" />
             <End Role="Shipments" EntitySet="Shipments" />
           </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="Self.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
           <AssociationSet Name="FK__Social_Ex__progr__3E52440B" Association="Self.FK__Social_Ex__progr__3E52440B">
             <End Role="Social_Programs" EntitySet="Social_Programs" />
             <End Role="Social_Expenses" EntitySet="Social_Expenses" />
@@ -529,7 +579,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище MiningMetallurgyPlantModelContainer" CdmEntityContainer="MiningMetallurgyPlantEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MiningMetallurgyPlantModelContainer" CdmEntityContainer="MiningMetallurgyPlantEntities1">
           <EntitySetMapping Name="Contracts">
             <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Contracts">
               <MappingFragment StoreEntitySet="Contracts">
@@ -591,6 +641,14 @@
                 <ScalarProperty Name="extraction_date" ColumnName="extraction_date" />
                 <ScalarProperty Name="volume" ColumnName="volume" />
                 <ScalarProperty Name="quality_check" ColumnName="quality_check" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
