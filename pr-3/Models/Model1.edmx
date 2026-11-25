@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище MiningMetallurgyPlantModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище MiningMetallurgyPlantModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contracts">
           <Key>
             <PropertyRef Name="contract_id" />
@@ -34,6 +34,16 @@
           <Property Name="equipment_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="equipment_type" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="50" />
+          <Property Name="AttemptTime" Type="datetime" />
+          <Property Name="IsSuccess" Type="bit" />
+          <Property Name="FailReason" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Material_Requests">
           <Key>
@@ -239,6 +249,7 @@
           <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Email_Log" EntityType="Self.Email_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Equipments" EntityType="Self.Equipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material_Requests" EntityType="Self.Material_Requests" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Minerals" EntityType="Self.Minerals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mining_Parties" EntityType="Self.Mining_Parties" Schema="dbo" store:Type="Tables" />
@@ -280,8 +291,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MiningMetallurgyPlantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -573,7 +583,18 @@
             <End Role="Social_Programs" EntitySet="Social_Programs" />
             <End Role="Social_Expenses" EntitySet="Social_Expenses" />
           </AssociationSet>
+          <EntitySet Name="LoginHistory" EntityType="MiningMetallurgyPlantModel.LoginHistory" />
         </EntityContainer>
+        <EntityType Name="LoginHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="UserLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AttemptTime" Type="DateTime" Precision="3" />
+          <Property Name="IsSuccess" Type="Boolean" />
+          <Property Name="FailReason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -738,6 +759,17 @@
                 <ScalarProperty Name="mineral_id" ColumnName="mineral_id" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="last_updated" ColumnName="last_updated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginHistory">
+            <EntityTypeMapping TypeName="MiningMetallurgyPlantModel.LoginHistory">
+              <MappingFragment StoreEntitySet="LoginHistory">
+                <ScalarProperty Name="FailReason" ColumnName="FailReason" />
+                <ScalarProperty Name="IsSuccess" ColumnName="IsSuccess" />
+                <ScalarProperty Name="AttemptTime" ColumnName="AttemptTime" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -83,6 +83,9 @@
     <Compile Include="Models\Equipments.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Material_Requests.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

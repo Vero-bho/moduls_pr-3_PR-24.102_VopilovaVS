@@ -20,31 +20,52 @@
             <TextBox x:Name="txtLogin"/>
 
             <TextBlock Text="Пароль:"/>
-            <PasswordBox x:Name="psbPassword"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <PasswordBox x:Name="psbPassword" Grid.Column="0"
+                             PasswordChanged="psbPassword_PasswordChanged"/>
+                <TextBox x:Name="txtPasswordVisible" Grid.Column="0"
+                         Visibility="Collapsed"
+                         TextChanged="txtPasswordVisible_TextChanged"/>
+                <CheckBox x:Name="chkShowPassword" Grid.Column="1"
+                          Content="Показать"
+                          Margin="8,0,0,0"
+                          VerticalAlignment="Center"
+                          Checked="chkShowPassword_Checked"
+                          Unchecked="chkShowPassword_Unchecked"/>
+            </Grid>
 
-            <TextBlock x:Name="txtBlockCaptcha" Text="Капча:" Visibility="Hidden"/>
-            <Grid Visibility="Hidden" x:Name="gridCaptcha">
+            <!-- CAPTCHA -->
+            <TextBlock x:Name="txtBlockCaptcha" Text="Капча:" Visibility="Collapsed"/>
+            <Grid Visibility="Collapsed" x:Name="gridCaptcha">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="txtBoxCaptcha" Grid.Column="0"/>
-                <TextBlock x:Name="tblCaptcha" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold"/>
+                <TextBlock x:Name="tblCaptcha" Grid.Column="1"
+                           VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold"/>
             </Grid>
 
+            <!-- Сообщение об ошибке / счётчик попыток -->
+            <TextBlock x:Name="txtAttemptsInfo" Foreground="DarkRed"
+                       HorizontalAlignment="Center" Margin="0,8,0,0"/>
+
+            <!-- Индикатор блокировки -->
+            <TextBlock x:Name="txtLockoutInfo" Foreground="Red" FontWeight="Bold"
+                       HorizontalAlignment="Center" Margin="0,8,0,0"
+                       Visibility="Collapsed"/>
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="80">
-                <Button x:Name="btnEnterGuests"
-                        Margin="5,15,5,5"
-                        Content="Войти как гость"
-                        Click="btnEnterGuests_Click"/>
-                <Button x:Name="btnEnter"
-                        Margin="5,15,5,5"
-                        Content="Войти"
-                        Click="btnEnter_Click"/>
-                <Button x:Name="btnRegisterPage"
-                        Margin="5,15,5,5"
-                        Content="Регистрация" 
-                        Click="btnRegisterPage_Click"/>
+                <Button x:Name="btnEnterGuests" Margin="5,15,5,5"
+                        Content="Войти как гость" Click="btnEnterGuests_Click"/>
+                <Button x:Name="btnEnter" Margin="5,15,5,5"
+                        Content="Войти" Click="btnEnter_Click"/>
+                <Button x:Name="btnRegisterPage" Margin="5,15,5,5"
+                        Content="Регистрация" Click="btnRegisterPage_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

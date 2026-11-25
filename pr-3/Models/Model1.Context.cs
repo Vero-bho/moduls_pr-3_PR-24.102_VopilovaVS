@@ -40,5 +40,6 @@ namespace pr_3.Models
         public virtual DbSet<Tax_Payments> Tax_Payments { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Warehouse_Reserves> Warehouse_Reserves { get; set; }
+        public virtual DbSet<LoginHistory> LoginHistory { get; set; }
     }
 }

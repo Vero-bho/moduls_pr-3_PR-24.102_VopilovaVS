@@ -27,6 +27,7 @@
         <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Shipments__party__35BCFE0A" ManuallyRouted="false" />
         <AssociationConnector Association="MiningMetallurgyPlantModel.FK_Users_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="MiningMetallurgyPlantModel.FK__Social_Ex__progr__3E52440B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MiningMetallurgyPlantModel.LoginHistory" Width="1.5" PointX="10.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
