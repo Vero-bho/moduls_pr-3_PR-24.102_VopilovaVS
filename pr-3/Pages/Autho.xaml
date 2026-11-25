@@ -38,7 +38,6 @@
                           Unchecked="chkShowPassword_Unchecked"/>
             </Grid>
 
-            <!-- CAPTCHA -->
             <TextBlock x:Name="txtBlockCaptcha" Text="Капча:" Visibility="Collapsed"/>
             <Grid Visibility="Collapsed" x:Name="gridCaptcha">
                 <Grid.ColumnDefinitions>
@@ -50,11 +49,9 @@
                            VerticalAlignment="Center" Margin="10,0,0,0" FontWeight="Bold"/>
             </Grid>
 
-            <!-- Сообщение об ошибке / счётчик попыток -->
             <TextBlock x:Name="txtAttemptsInfo" Foreground="DarkRed"
                        HorizontalAlignment="Center" Margin="0,8,0,0"/>
 
-            <!-- Индикатор блокировки -->
             <TextBlock x:Name="txtLockoutInfo" Foreground="Red" FontWeight="Bold"
                        HorizontalAlignment="Center" Margin="0,8,0,0"
                        Visibility="Collapsed"/>
